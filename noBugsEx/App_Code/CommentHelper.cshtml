@@ -1,0 +1,28 @@
+﻿@using noBugsEx.Models;
+
+@helper Render(Comment com, System.Web.Mvc.HtmlHelper html, bool CanEdit)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><a href="@Href("~/Comment/Details/" + @com.Id)">@com.Title</a></h4>
+            @com.DateTime.ToString()
+        </div>
+        <div class="panel-body">
+
+            @html.Raw(com.Body)
+        </div>
+        <div class="panel-footer">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Here we go!" data-url="http://nobugsexception.com/" data-show-count="false">Tweet</a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            @if (CanEdit)
+    {
+                <div class="postControlPanel" align="right">
+                    <a href="@Href("~/Comment/Delete/" +com.Id)">Delete</a>
+                    <a href="@Href("~/Comment/Edit/" +com.Id)">Edit</a>
+                </div>
+
+            }
+        </div>
+    </div>
+    
+}

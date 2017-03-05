@@ -1,0 +1,9 @@
+﻿@model noBugsEx.Models.Comment
+
+
+@{
+    ViewBag.Title = "Details";
+    bool CanEdit = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+
+@CommentHelper.Render(Model, Html, CanEdit)

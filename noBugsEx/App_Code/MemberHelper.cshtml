@@ -1,0 +1,36 @@
+﻿@using noBugsEx.Models;
+
+@helper Render(Team te, System.Web.Mvc.HtmlHelper html, bool CanEdit)
+{   
+    <div class="comContainer">
+        <div class="comContent">
+           
+            
+            
+        </div>
+    </div>
+
+    <div class="panel panel-default center-block">
+        <div class="panel-heading">
+            <div align="center"><h3 class="panel-title"><a href="@Href("~/Team/Details/" + te.Id)"><h3>@te.FirstName @te.LastName</h3></a></h3></div>
+        </div>
+        <div class="panel-body">
+            <div class="comBody" align="center"><img class="img-circle" src="@Href("~/Content/Images/"+te.Image)" /></div><br />
+
+            <div class="comBody" align="center">@html.Raw(te.Email)</div>
+            <div class="comBody" align="center">@html.Raw(te.Position)</div>
+            <div class="panel-footer ">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Here we go!" data-url="http://nobugsexception.com/" data-show-count="false">Tweet</a>
+                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                @if (CanEdit)
+                {
+                <div class="comControlPanel" align="right">
+                    <a href="@Href("~/Team/Delete/" +te.Id)">Delete</a>
+                    <a href="@Href("~/Team/Edit/" +te.Id)">Edit</a>
+                </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}

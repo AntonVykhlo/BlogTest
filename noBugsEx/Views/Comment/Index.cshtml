@@ -1,0 +1,31 @@
+﻿
+@using noBugsEx.Models;
+@model IEnumerable<Comment>
+@{
+    ViewBag.Title = "Index";
+    bool IsPreviousLinkVisible = ViewBag.IsPreviousLinkVisible ?? false;
+    bool IsNextLinkVisible = ViewBag.IsNextLinkVisible ?? false;
+    int pageNumber = ViewBag.pageNumber;
+    bool CanEdit = User.IsInRole("Admin") || User.IsInRole("Moderator")|| User.IsInRole("Client");
+}
+<div align="center">
+    @if (CanEdit)
+    {
+        @Html.ActionLink("Add new comment", "Edit", "Comment", null, new { @class = "btn btn-default btn-xs active" })
+    }
+    </div>
+
+    @foreach (Comment com in Model)
+    {
+        @CommentHelper.Render(com, Html, CanEdit)
+    }
+
+    @if (IsPreviousLinkVisible)
+    {
+        <a id="previousLink" class="btn btn-default btn-lg active" role="button" href="@Href("~/Comment/Index/" + (ViewBag.pageNumber-1))">&lt; Previous Page</a>
+    }
+
+    @if (IsNextLinkVisible)
+    {
+        <div align="right"><a id="nextLink" class="btn btn-default btn-lg active" role="button" href="@Href("~/Comment/Index/" + (ViewBag.pageNumber+1))"> Next Page &gt;</a></div>
+    }

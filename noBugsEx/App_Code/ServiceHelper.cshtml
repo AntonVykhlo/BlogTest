@@ -1,0 +1,36 @@
+﻿@using noBugsEx.Models;
+
+
+@helper Render(SuppliedService SupServ, System.Web.Mvc.HtmlHelper html, bool CanEdit, bool showShortDesc, bool showFullDesc)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><a href="@Href("~/SuppliedServices/Details/" + @SupServ.Id)">@SupServ.Title</a></h4>
+        </div>
+        <div class="panel-body">
+
+            @if (showFullDesc)
+            {
+                <div class="postBody">@html.Raw(SupServ.FullDescription)</div>
+                <div class="links"></div>
+            }
+            @if (showShortDesc)
+            {
+                <div class="postBody">@html.Raw(SupServ.ShortDescription)</div>
+                <div class="links"></div>
+            }
+        </div>
+        <div class="panel-footer">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="Here we go!" data-url="http://nobugsexception.com/" data-show-count="false">Tweet</a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            @if (CanEdit)
+    {
+                <div class="postControlPanel" align="right">
+                    <a href="@Href("~/SuppliedServices/Delete/" +SupServ.Id)">Delete</a>
+                    <a href="@Href("~/SuppliedServices/Edit/" +SupServ.Id)">Edit</a>
+                </div>
+
+            }
+        </div>
+    </div>
+}

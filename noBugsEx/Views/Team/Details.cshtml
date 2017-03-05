@@ -1,0 +1,9 @@
+﻿@model noBugsEx.Models.Team
+
+
+@{
+    ViewBag.Title = "Details";
+    bool CanEdit = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+
+@MemberHelper.Render(Model, Html, CanEdit)

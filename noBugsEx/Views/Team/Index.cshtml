@@ -1,0 +1,31 @@
+﻿
+@using noBugsEx.Models;
+@model IEnumerable<Team>
+@{
+    ViewBag.Title = "Index";
+    bool IsPreviousLinkVisible = ViewBag.IsPreviousLinkVisible ?? false;
+    bool IsNextLinkVisible = ViewBag.IsNextLinkVisible ?? false;
+    int pageNumber = ViewBag.pageNumber;
+    bool CanEdit = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+<div align="center">
+    @if (CanEdit)
+    {
+        @Html.ActionLink("Add new member", "Edit", "Team", null, new { @class = "btn btn-default btn-xs active" })
+    }
+    </div>
+
+    @foreach (Team team in Model)
+    {
+        @MemberHelper.Render(team, Html, CanEdit)
+    }
+
+    @if (IsPreviousLinkVisible)
+    {
+        <a id="previousLink" class="btn btn-default btn-lg active" role="button" href="@Href("~/Team/Index/" + (ViewBag.pageNumber-1))">&lt; Previous Page</a>
+    }
+
+    @if (IsNextLinkVisible)
+    {
+        <div align="right"> <a id="nextLink" class="btn btn-default btn-lg active" role="button" href="@Href("~/Team/Index/" + (ViewBag.pageNumber+1))"> Next Page &gt;</a></div>
+    }

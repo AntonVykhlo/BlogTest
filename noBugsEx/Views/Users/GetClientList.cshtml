@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "GetClientList";
+}
+
+<h2>Clients: </h2>
+
+<ul>
+   
+        @foreach (var user in ViewBag.Users)
+        {
+            <ui>
+                @user.UserName
+            </ui>
+        }
+</ul>
+

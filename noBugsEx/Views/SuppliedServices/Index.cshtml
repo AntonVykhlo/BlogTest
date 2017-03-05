@@ -1,0 +1,30 @@
+﻿
+@using noBugsEx.Models;
+@model IEnumerable<SuppliedService>
+@{
+    ViewBag.Title = "Index";
+    bool IsPreviousLinkVisible = ViewBag.IsPreviousLinkVisible ?? false;
+    bool IsNextLinkVisible = ViewBag.IsNextLinkVisible ?? false;
+    int pageNumber = ViewBag.pageNumber;
+    bool CanEdit = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+<div align="center">
+    @if (CanEdit)
+    {
+        @Html.ActionLink("Add new service", "Edit", "SuppliedServices", null, new { @class = "btn btn-default btn-xs active" })
+    }
+    </div>
+    @foreach (SuppliedService serv in Model)
+    {
+        @ServiceHelper.Render(serv, Html, CanEdit, true, false)
+    }
+
+    @if (IsPreviousLinkVisible)
+    {
+        <a id="previousLink" class="btn btn-default btn-lg active" role="button" href="@Href("~/Blog/Index/" + (ViewBag.pageNumber-1))">&lt; Previous Page</a>
+    }
+
+    @if (IsNextLinkVisible)
+    {
+        <div align="right"><a id="nextLink" class="btn btn-default btn-lg active" role="button" href="@Href("~/Blog/Index/" + (ViewBag.pageNumber+1))"> Next Page &gt;</a></div>
+    }

@@ -1,0 +1,9 @@
+﻿@model noBugsEx.Models.Post
+
+
+@{
+    ViewBag.Title = "Details";
+    bool CanEdit = User.IsInRole("Admin") || User.IsInRole("Moderator");
+}
+
+@PostHelper.Render(Model, Html, CanEdit)
